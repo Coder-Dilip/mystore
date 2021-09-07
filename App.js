@@ -6,6 +6,7 @@ import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home'
 import Upload from './components/Upload';
+import Edit from './components/Edit'
 
 export default function App() {
   const navTheme = DefaultTheme;
@@ -17,6 +18,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Upload" component={Upload} />
+        <Stack.Screen name="Edit" component={Edit} />
       </Stack.Navigator>
     </NavigationContainer>
     

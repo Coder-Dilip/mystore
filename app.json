@@ -34,7 +34,8 @@
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.dilip025.mystore"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -42,6 +43,7 @@
     "plugins": [
       "expo-image-picker",
       "expo-document-picker"
-    ]
+    ],
+    "description": ""
   }
 }

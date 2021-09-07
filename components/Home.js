@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text,TextInput, Button, Image,FlatList, SafeAreaView,Keyboard } from 'react-native';
+import { View, Text,TextInput, Button, Image,FlatList, SafeAreaView,Keyboard, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Header from './Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Entypo } from '@expo/vector-icons';
 
 const Home = ({navigation}) => {
     const [name, setname] = useState('');
@@ -48,8 +49,19 @@ const Home = ({navigation}) => {
  
     const renderItem = ({ item }) => (
         <View style={{marginTop:50}}>
-        <Image style={{height:200,width:'70%', maxWidth:300,borderRadius:10}} source={{
-            uri: `https://dilipbackend.xyz/${item.image}`,
+            <TouchableOpacity style={{zIndex:100,position:'absolute'}} onPress={async()=>{
+try {
+    const jsonValue = JSON.stringify(item)
+    await AsyncStorage.setItem('currentItem', jsonValue)
+  } catch (e) {
+  }
+                navigation.navigate('Edit')
+                
+                }}>
+<Entypo name="edit" size={24} color="blueviolet" style={{backgroundColor:'white',width:50,padding:10,borderTopLeftRadius:10,borderBottomRightRadius:10,borderColor:'lightblue'}} />
+</TouchableOpacity>
+        <Image style={{height:200,zIndex:10,width:'70%', maxWidth:300,borderRadius:10}} source={{
+            uri: `https://dilipbackend.xyz/storage/${item.image}`,
         }}/>
         <View style={{flexDirection:'row', width:'70%',maxWidth:300,justifyContent:'space-between',marginTop:10}}>
             <View>
@@ -67,6 +79,7 @@ const Home = ({navigation}) => {
     return (
         <>
         <Header navigation={navigation} />
+    <ScrollView style={{flex:1}}>
         <View style={{marginTop:30,width:'90%',marginLeft:'auto',marginRight:'auto',flexDirection:'row'}}>
 <View style={{flexDirection:'row',backgroundColor:'#fafafa',borderRadius:5,alignItems:'center',width:200}}>
             
@@ -80,16 +93,16 @@ const Home = ({navigation}) => {
             <FontAwesome name="search" size={18} color="#808080"  />
             </TouchableOpacity>
                 </View>
-                <View style={{flex:1,marginTop:100,left:'10%'}}>
+                <View style={{flex:1,marginTop:100,left:'5%'}}>
                     <Text style={{fontSize:30,fontWeight:'bold',color:'orange'}}>Products</Text>
-            <SafeAreaView style={{flex:1}}>
             {productList.length<1?<Text style={{fontSize:30, marginTop:50}}>No Such Items :(</Text>:<FlatList
         data={productList}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
       />}
-            </SafeAreaView>
             </View>
+            <View style={{marginTop:30}} ></View>
+            </ScrollView>
         </>
     )
 }
